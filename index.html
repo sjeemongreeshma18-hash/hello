@@ -25,10 +25,15 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <h1>GREESHMA S JEEMON</h1>
-            <p class="subtitle">Student at Toc H Institute of Science and Technology</p>
-            <p class="tagline">Passionate about learning and exploring technology</p>
+        <div class="hero-container">
+            <div class="hero-content">
+                <p class="hero-greeting">Hello, I'm</p>
+                <h1 class="hero-name">Greeshma S Jeemon</h1>
+                <p class="hero-profession">And I'm a <span class="highlight typewriter" id="typewriter">web designer</span></p>
+            </div>
+            <div class="hero-photo-space">
+                <!-- Space for photo -->
+            </div>
         </div>
     </section>
 
@@ -88,7 +93,7 @@
                 <div class="timeline-item">
                     <h3>B.Tech in Computer Science</h3>
                     <p class="institution">Toc H Institute of Science and Technology</p>
-                    <p class="year">2024 - 2028</p>
+                    <p class="year">2025 - 2029</p>
                 </div>
             </div>
         </div>
@@ -101,7 +106,7 @@
             <div class="timeline">
                 <div class="timeline-item">
                     <h3>Internship</h3>
-                    <p class="institution">Lifoys</p>
+                    <p class="institution">Lifosys</p>
                     <p class="year">Currently</p>
                 </div>
             </div>
@@ -124,5 +129,66 @@
     <footer class="footer">
         <p>&copy; 2024 GREESHMA S JEEMON. All rights reserved.</p>
     </footer>
+
+    <script>
+        // Typewriter effect for "web designer"
+        const typewriterElement = document.getElementById('typewriter');
+        const text = 'web designer';
+        let isDeleting = false;
+        let charIndex = 0;
+
+        function typewriterEffect() {
+            if (!isDeleting) {
+                // Typing
+                if (charIndex < text.length) {
+                    typewriterElement.textContent = text.substring(0, charIndex + 1);
+                    charIndex++;
+                    setTimeout(typewriterEffect, 100);
+                } else {
+                    // Pause before deleting
+                    setTimeout(() => {
+                        isDeleting = true;
+                        typewriterEffect();
+                    }, 2000);
+                }
+            } else {
+                // Deleting
+                if (charIndex > 0) {
+                    charIndex--;
+                    typewriterElement.textContent = text.substring(0, charIndex);
+                    setTimeout(typewriterEffect, 80);
+                } else {
+                    // Pause before typing again
+                    isDeleting = false;
+                    setTimeout(typewriterEffect, 500);
+                }
+            }
+        }
+
+        // Start the effect when page loads
+        typewriterEffect();
+
+        // Scroll animation for sections
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        const sections = document.querySelectorAll('section');
+        sections.forEach((section, index) => {
+            section.style.opacity = '0';
+            observer.observe(section);
+        });
+    </script>
 </body>
 </html>
